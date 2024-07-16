@@ -19,7 +19,7 @@ public class SkylineLibrary {
         int init_algo(String dataFilePath, Structures.skyline_data data, Structures.rtree tree);
 
         // 定义query_algo方法，参数为skyline_data结构体指针、rtree结构体指针、查询文件路径
-        String query_algo(Structures.skyline_data data, Structures.rtree tree, String queryFilePath);
+        int query_algo(Structures.skyline_data data, Structures.rtree tree, String queryFilePath,String resultFilePath);
 
         // 定义free_algo方法，参数为skyline_data结构体指针、rtree结构体指针
         int free_algo(Structures.skyline_data data, Structures.rtree tree);
@@ -32,7 +32,7 @@ public class SkylineLibrary {
         public static class skyline_data extends Structure {
             public int dim;
             public int n;
-            public PointerByReference x_data;  // set_x**
+            public Pointer x_data;  // set_x**
 
             @Override
             protected List<String> getFieldOrder() {
@@ -43,25 +43,8 @@ public class SkylineLibrary {
             public static class ByValue extends skyline_data implements Structure.ByValue {}
         }
 
-        public static class rtree_node extends Structure {
-            public int dim;
-            public Pointer data;  // set_x*
-            public int is_left_node;
-            public PointerByReference range;  // eTPSS***
-            public rtree_node.ByReference left;
-            public rtree_node.ByReference right;
-
-            @Override
-            protected List<String> getFieldOrder() {
-                return List.of("dim", "data", "is_left_node", "range", "left", "right");
-            }
-
-            public static class ByReference extends rtree_node implements Structure.ByReference {}
-            public static class ByValue extends rtree_node implements Structure.ByValue {}
-        }
-
         public static class rtree extends Structure {
-            public rtree_node.ByReference root;
+            public Pointer root;
 
             @Override
             protected List<String> getFieldOrder() {

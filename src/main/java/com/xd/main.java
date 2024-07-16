@@ -6,22 +6,12 @@ import com.xd.util.constant.ETPSSConstant;
 /**测试JNA内容的效果*/
 public class main {
     public static void main(String[] args) {
-//        JNA_TEST_ScComputing();
-        // 测试ReverseSQ
-//        JNA_TEST_ReverseSQ1();
-//        JNA_TEST_ReverseSQ2();
-//        JNA_TEST_ReverseSQ2();
-//        JNA_TEST_ReverseSQ2();
-
-        // 测试SecureCollaborationQ
         SecureCollaborationQ1();
         SecureCollaborationQ2();
         SecureCollaborationQ2();
         SecureCollaborationQ2();
     }
-
-
-    // SecureCollaborationQ用于预处理数据
+   // SecureCollaborationQ用于预处理数据
     private static void SecureCollaborationQ1() {
         dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface instance = dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface.INSTANCE;
         // 获取当前时间
@@ -60,6 +50,64 @@ public class main {
             System.err.println("查询失败！");
         }
     }
+  
+  
+    private static void JNA_TEST_DD_SKYLINE(){
+        DD_SKYLINELibrary.DD_SKYLINEInterface instance = DD_SKYLINELibrary.DD_SKYLINEInterface.INSTANCE;
+        DD_SKYLINELibrary.Structures.DrqDataSet dataSet = new DD_SKYLINELibrary.Structures.DrqDataSet();
+
+        int initResult = instance.init_algo(dataSet,"D:\\study\\code\\ClionProject\\dd_skyline\\data\\SKYLINE_DATA_FILE.txt");
+        if (initResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to initialize algorithm");
+        }
+        int queryResult = instance.query_algo(dataSet,"D:\\study\\code\\ClionProject\\dd_skyline\\data\\SKYLINE_QUERY_RANGE_FILE.txt",
+                "D:\\study\\code\\ClionProject\\dd_skyline\\data\\SKYLINE_QUERY_POINT_Y_FILE.txt",
+                "D:\\study\\code\\ClionProject\\dd_skyline\\data\\SKYLINE_RES_FILE.txt");
+        if (queryResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to query algorithm");
+        }
+        int freeResult = instance.free_algo(dataSet);
+        if (freeResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to free algorithm");
+        }
+    }
+
+
+    private static void JNA_TEST_DD_SKQ(){
+        DD_SKQLibrary.DD_SKQInterface instance = DD_SKQLibrary.DD_SKQInterface.INSTANCE;
+        DD_SKQLibrary.Structures.DD_SKQDataSet dataSet = new DD_SKQLibrary.Structures.DD_SKQDataSet();
+
+        int initResult = instance.init_algo("D:\\study\\code\\ClionProject\\dd_SKQ\\data\\data.txt",dataSet);
+        if (initResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to initialize algorithm");
+        }
+        int queryResult = instance.query_algo(dataSet,"D:\\study\\code\\ClionProject\\dd_SKQ\\data\\query.txt","D:\\study\\code\\ClionProject\\dd_SKQ\\data\\res.txt");
+        if (queryResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to query algorithm");
+        }
+        int freeResult = instance.free_algo(dataSet);
+        if (freeResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to free algorithm");
+        }
+    }
+    private static void JNA_TEST_DRQ(){
+        DRQLibrary.DRQInterface instance = DRQLibrary.DRQInterface.INSTANCE;
+        DRQLibrary.Structures.DrqDataSet dataSet = new DRQLibrary.Structures.DrqDataSet();
+
+        int initResult = instance.init_algo(dataSet,"D:\\study\\code\\ClionProject\\dstributed_range_query\\data\\DRQ_DATA_FILE.txt");
+        if (initResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to initialize algorithm");
+        }
+        int queryResult = instance.query_algo(dataSet,"D:\\study\\code\\ClionProject\\dstributed_range_query\\data\\DRQ_QUERY_FILE.txt","D:\\study\\code\\ClionProject\\dstributed_range_query\\data\\DRQ_RES_FILE.txt");
+        if (queryResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to query algorithm");
+        }
+        int freeResult = instance.free_algo(dataSet);
+        if (freeResult !=  ETPSSConstant.SUCCESS) {
+            System.err.println("Failed to free algorithm");
+
+        }
+    }
 
     private static void JNA_TEST_ScComputing(){
         ScComputingLibrary.ScComputingInterface instance = ScComputingLibrary.ScComputingInterface.INSTANCE;
@@ -96,8 +144,9 @@ public class main {
         SkylineLibrary.SkylineInterface skyline = SkylineLibrary.SkylineInterface.INSTANCE;
         SkylineLibrary.Structures.skyline_data data =  new SkylineLibrary.Structures.skyline_data();
         SkylineLibrary.Structures.rtree tree = new  SkylineLibrary.Structures.rtree();
-        skyline.init_algo("",data,tree);
-        skyline.query_algo(data,tree,"");
+        skyline.init_algo("D:\\study\\code\\ClionProject\\skyline\\data\\RSQ_DATA_FILE.txt",data,tree);
+        skyline.query_algo(data,tree,"D:\\study\\code\\ClionProject\\skyline\\data\\REQ_DATA_FILE.txt","D:\\study\\code\\ClionProject\\skyline\\data\\RESP_DATA_FILE.txt");
+
         skyline.free_algo(data,tree);
 
     }
