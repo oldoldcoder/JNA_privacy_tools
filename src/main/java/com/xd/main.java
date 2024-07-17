@@ -4,19 +4,54 @@ import com.xd.library.*;
 import com.xd.util.constant.ETPSSConstant;
 
 /**测试JNA内容的效果*/
+/**测试JNA内容的效果*/
 public class main {
     public static void main(String[] args) {
-        SecureCollaborationQ1();
-        SecureCollaborationQ2();
-        SecureCollaborationQ2();
-        SecureCollaborationQ2();
+//        JNA_TEST_ScComputing();
+
+        // 测试ReverseSQ
+        JNA_TEST_ReverseSQ1(); // 预处理数据
+        JNA_TEST_ReverseSQ2(); // 第一次查询
+        JNA_TEST_ReverseSQ3(); // 删除数据
+
+        System.out.println("--------------------------------------------");
+        JNA_TEST_ReverseSQ1(); // 预处理数据
+        JNA_TEST_ReverseSQ2(); // 第二次查询
+        JNA_TEST_ReverseSQ3(); // 删除数据
+        System.out.println("--------------------------------------------");
+        JNA_TEST_ReverseSQ1(); // 预处理数据
+        JNA_TEST_ReverseSQ2(); // 第三次查询
+        JNA_TEST_ReverseSQ3(); // 删除数据
+        System.out.println("--------------------------------------------");
+
+
+        // 测试SecureCollaborationQ
+        SecureCollaborationQ1(); // 预处理数据
+        SecureCollaborationQ2(); // 第一次查询
+        SecureCollaborationQ2(); // 第二次查询
+        SecureCollaborationQ3(); // 删除数据
+        System.out.println("--------------------------------------------");
+
+
+        SecureCollaborationQ1(); // 预处理数据
+        SecureCollaborationQ2(); // 第三次查询
+        SecureCollaborationQ3(); // 删除数据
+        System.out.println("--------------------------------------------");
+
+        SecureCollaborationQ1(); // 预处理数据
+        SecureCollaborationQ2(); // 第四次查询
+        SecureCollaborationQ3(); // 删除数据
+        System.out.println("--------------------------------------------");
+
     }
-   // SecureCollaborationQ用于预处理数据
+
+
+    // SecureCollaborationQ用于预处理数据
     private static void SecureCollaborationQ1() {
         dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface instance = dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface.INSTANCE;
         // 获取当前时间
         long start = System.currentTimeMillis();
-        instance.dealData("C:\\Users\\uu\\Desktop\\rawData.txt");
+        instance.dealData("D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_ssq\\rawData.txt");
         // 以毫秒为单位输出时间
         long end = System.currentTimeMillis();
         System.out.println("预处理数据耗时：" + (end - start) + "ms");
@@ -26,7 +61,7 @@ public class main {
     private static void SecureCollaborationQ2() {
         dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface instance = dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface.INSTANCE;
         long start = System.currentTimeMillis();
-        int ret = instance.secureCollaborationQ("C:\\Users\\uu\\Desktop\\query.txt", "C:\\Users\\uu\\Desktop\\result.txt");
+        int ret = instance.secureCollaborationQ("D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_ssq\\query.txt", "D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_ssq\\result.txt");
         long end = System.currentTimeMillis();
         System.out.println("查询数据耗时：" + (end - start) + "ms");
 
@@ -35,20 +70,33 @@ public class main {
         }
     }
 
+    // SecureCollaborationQ用于释放空间
+    private static void SecureCollaborationQ3() {
+        dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface instance = dd_SecureCollaborationQLibrary.dd_SecureCollaborationQInterface.INSTANCE;
+        instance.cleanupRawData();
+    }
+
+
     // ReverseSQ用于预处理数据
     private static void JNA_TEST_ReverseSQ1() {
         dd_ReverseSQLibrary.dd_ReverseSQInterface instance = dd_ReverseSQLibrary.dd_ReverseSQInterface.INSTANCE;
         // 先调用dealData预处理数据，只用处理一次，以后可以直接查询
-        instance.dealData("C:\\Users\\uu\\Desktop\\data.txt", "C:\\Users\\uu\\Desktop\\data2.txt");
+        instance.dealData("D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_rsq\\data.txt", "D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_rsq\\data2.txt");
     }
 
     // ReverseSQ用于查询数据
     private static void JNA_TEST_ReverseSQ2() {
         dd_ReverseSQLibrary.dd_ReverseSQInterface instance = dd_ReverseSQLibrary.dd_ReverseSQInterface.INSTANCE;
-        int ret = instance.reverseSQ("C:\\Users\\uu\\Desktop\\query2.txt", "C:\\Users\\uu\\Desktop\\result.txt");
+        int ret = instance.reverseSQ("D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_rsq\\query2.txt", "D:\\step_task\\privacy_tools_achieve\\data_set\\dd\\dd_rsq\\result.txt");
         if(ret != ETPSSConstant.SUCCESS){
             System.err.println("查询失败！");
         }
+    }
+
+    // ReverseSQ用于释放空间
+    private static void JNA_TEST_ReverseSQ3() {
+        dd_ReverseSQLibrary.dd_ReverseSQInterface instance = dd_ReverseSQLibrary.dd_ReverseSQInterface.INSTANCE;
+        instance.freeRawData();
     }
   
   

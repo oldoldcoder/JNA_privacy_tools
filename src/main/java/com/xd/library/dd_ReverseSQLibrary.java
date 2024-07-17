@@ -22,5 +22,10 @@ public class dd_ReverseSQLibrary {
          * @return 状态码，1：成功；0：失败
          */
         int reverseSQ(String fileString, String resultFilePath);
+
+        /**
+         * @Method: 释放所用分配的内存
+         */
+        void freeRawData();
     }
 }

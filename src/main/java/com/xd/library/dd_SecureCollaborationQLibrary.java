@@ -20,5 +20,10 @@ public class dd_SecureCollaborationQLibrary {
          * @return 状态码，1：成功；0：失败
          */
         int secureCollaborationQ(String fileString, String resultFilePath);
+
+        /**
+         * @Method: 清理函数，用于释放 rawData 中的 BIGNUM 对象的内存
+         */
+        void cleanupRawData();
     }
 }
